@@ -1,24 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'; // Import BrowserRouter and Routes
+import Home from './home'; // Make sure the path is accurate
+import WriteData from './WriteForm';
+import ReadData from './ReadForm';
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+    <Routes> {/* Use Routes instead of Switch */}
+      <Route path="/" element={<Home />} />
+      <Route path="/write" element={<WriteData />} /> {/* Use element prop */}
+      <Route path="/read" element={<ReadData />} /> {/* Use element prop */}
+    </Routes>
+  </Router>
   );
 }
 

@@ -1,0 +1,69 @@
+/* Container for the entire ReadData component */
+.read-data-container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Form title */
+  h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  /* Select database dropdown */
+  .select-database label {
+    font-size: 16px;
+  }
+  
+  .select-database select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  /* Unique Identifier input */
+  .unique-identifier label {
+    font-size: 16px;
+  }
+  
+  .unique-identifier input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  /* Search button */
+  button {
+    background-color: #007bff;
+    color: #fff;
+    font-size: 18px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+  }
+  
+  /* Hover effect for the button */
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Retrieved data display */
+  .retrieved-data {
+    margin-top: 20px;
+  }
+  
+  /* Add additional CSS styles as needed */
+  
