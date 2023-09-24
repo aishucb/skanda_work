@@ -79,7 +79,7 @@ function FirestoreDataDisplay() {
   return (
     <div className="container">
       <div className="card">
-        <h2>Enter Unique ID:</h2>
+        <h2 style={{color:'#012b59'}}>Enter Unique ID:</h2>
         <div className="input-container">
           <label htmlFor="uniqueId">Enter Unique ID:</label>
           <input
@@ -116,10 +116,10 @@ function FirestoreDataDisplay() {
 
         {productList.length > 0 && (
           <div className="result-card">
-            <h1>Product List</h1>
+            <h1 style={{color:'white'}}>Product List</h1>
             <ul>
               {productList.map((product, index) => (
-                <li key={index}>{product}</li>
+                <li key={index} style={{color:'white'}}>{product}</li>
               ))}
             </ul>
           </div>

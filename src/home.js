@@ -9,10 +9,10 @@ function Home() {
       <div className="background-image"></div>
       {/* Buttons for Write and Read Actions */}
       <div className="button-container">
-        <Link to="/write" className="button" style={{ backgroundColor: "#162b2b" }}>
+        <Link to="/write" className="button" style={{ backgroundColor: "#e7eff0", color: "#012b59"}}>
           Write
         </Link>
-        <Link to="/read" className="button" style={{ backgroundColor: "#162b2b" }}> 
+        <Link to="/read" className="button" style={{ backgroundColor: "#e7eff0", color: "#012b59" }}> 
           Read
         </Link>
       </div>

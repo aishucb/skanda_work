@@ -4,6 +4,9 @@ import { RecaptchaVerifier } from "firebase/auth";
 import { signInWithPhoneNumber } from "firebase/auth";
 import { getAuth } from 'firebase/auth';
 import firebase from 'firebase/compat/app';
+import './otp.css';
+
+
 const auth = getAuth(app);
 const db = firebase.firestore();
 class OtpApp extends Component {
@@ -62,7 +65,7 @@ class OtpApp extends Component {
       .then((result) => {
         const user = result.user;
         console.log(JSON.stringify(user));
-        alert("User verified");
+        alert("Record added succefully");
 
         // Call the function to store values in Firebase here
         this.storeValuesInFirebase();
@@ -95,8 +98,30 @@ class OtpApp extends Component {
 
   render() {
     return (
-      <div>
-        <h2>Login form</h2>
+      <div style={{backgroundColor :"#012b59"}} className="divisions">
+        <h2 style={{color: "white"}}>Insert Data</h2>
+        <br/>
+          <input
+            type="text"
+            name="value1"
+            placeholder="Value 1"
+            required
+            onChange={this.handleChange}
+          /><br/>
+          <input
+            type="text"
+            name="value2"
+            placeholder="Value 2"
+            required
+            onChange={this.handleChange}
+          /><br/>
+          <input
+            type="text"
+            name="value3"
+            placeholder="Value 3"
+            required
+            onChange={this.handleChange}
+          /><br/>
         <form onSubmit={this.onSignInSubmit}>
           <div id="sign-in-button"></div>
           <input
@@ -105,40 +130,20 @@ class OtpApp extends Component {
             placeholder="Mobile number"
             required
             onChange={this.handleChange}
-          />
-          <button type="submit">Submit</button>
-        </form>
-        <h2>OTP login</h2>
-        <form onSubmit={this.onSubmitOTP}>
-          <input
+          /><br/><br/>
+          <button type="submit" style={{ backgroundColor: "#e7eff0", color: "#012b59"}}>Submit</button><br/>
+        </form><br/>
+        <h2 style={{color: "white"}}>OTP login</h2>
+        <input
             type="number"
             name="otp"
             placeholder="OTP number"
             required
             onChange={this.handleChange}
-          />
-          <input
-            type="text"
-            name="value1"
-            placeholder="Value 1"
-            required
-            onChange={this.handleChange}
-          />
-          <input
-            type="text"
-            name="value2"
-            placeholder="Value 2"
-            required
-            onChange={this.handleChange}
-          />
-          <input
-            type="text"
-            name="value3"
-            placeholder="Value 3"
-            required
-            onChange={this.handleChange}
-          />
-          <button type="submit">Submit</button>
+          /><br/>
+        <form onSubmit={this.onSubmitOTP}>
+          
+          <button type="submit" style={{ backgroundColor: "#e7eff0", color: "#012b59"}}>Verify OTP</button>
         </form>
       </div>
     );
