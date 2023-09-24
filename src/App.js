@@ -2,11 +2,11 @@ import React from 'react';
 import { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './home'; // Import your other components
-
-import ReadData from './FirestoreDataDisplay';
-import OtpApp from './otp';
 import PaymentGateway from './PaymentGateways';
 import Login from './LoginForm'; // Import the Login component
+import ReadData from './FirestoreDataDisplay';
+import OtpApp from './otp';
+
 
 import SubscribedComponent from './SubscribedComponent';
 
