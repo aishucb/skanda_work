@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
     <style media="screen">
        body {
-        background-image: url('background.gif'); /* Replace with your GIF image path */
+        background-image: url('./assets/bg.jpg'); /* Replace with your GIF image path */
         background-size: cover;
         background-repeat: no-repeat;
         background-attachment: fixed;
@@ -16,7 +16,7 @@
         font-family: 'Poppins', sans-serif;
       }
       header {
-        background-color: #162b2b;
+        background-color: #0000001c;
         padding: 20px;
         display: flex;
         justify-content: space-between;
@@ -33,12 +33,12 @@
       }
 
       #root {
-        background-color: #F8F6F4;
+        background-color: #ffffff;
         max-width: 360px;
         margin: 100px auto 16px;
         padding: 32px 24px;
         border-radius: 15px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 6px rgba(222, 222, 222, 0.1);
       }
 
       /* Additional styles for the card content */
@@ -65,7 +65,7 @@
       #root a {
         display: block;
         text-align: center;
-        background: #039be5;
+        background: #ffffff;
         text-transform: uppercase;
         text-decoration: none;
         color: white;
@@ -78,16 +78,20 @@
         text-align: center;
         font-size: 13px;
       }
+      
     </style>
   </head>
   <body>
     <header>
       <img src="logo.jpg" alt="Logo">
       <!-- You can place your header content here -->
-      <a href="/login"><button>Login</button></a>
+      <div style="align-items:flex-end ;">
+      <a href="/login" style=" background-color: #00000000;color: white;"><button  style=" background-color: #00000000;color: white;">Login</button></a>&nbsp;    &nbsp;&nbsp; <a href="/payment" style=" background-color: #00000000;color: white;"><button  style=" background-color: #00000000;color: white;">Signup</button></a>
+        </div>
+
 
     <!-- Signup Button -->
-    <a href="/payment"><button>Signup</button></a>
+    
     </header>
     <div id="root">
       <h2>Welcome</h2>
