@@ -19,7 +19,7 @@ function Home() {
         <Link to="/login"  style={{ backgroundColor: "#e7eff0", color: "#012b59"}}>
           Login
         </Link>
-        <Link to="/signup"  style={{ backgroundColor: "#e7eff0", color: "#012b59" }}> 
+        <Link to="/payment"  style={{ backgroundColor: "#e7eff0", color: "#012b59" }}> 
           signup
         </Link>
       </div>

@@ -26,7 +26,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
 
-        <Route path="/login" element={<ReadData />} />
+        <Route path="/read" element={<ReadData />} />
         <Route path="/write" element={<OtpApp />} />
         <Route path="/payment" element={<PaymentGateway />} />
         {/* Use ProtectedRoute as a regular component */}
@@ -34,7 +34,7 @@ function App() {
           path="/protected"
           element={<SubscribedComponent isAuthenticated={isAuthenticated} />}
         />
-        <Route path="/read" element={<Login />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </Router>
   );
