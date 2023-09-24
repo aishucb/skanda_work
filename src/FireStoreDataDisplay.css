@@ -1,0 +1,111 @@
+/* styles.css */
+
+/* Container styles */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(246, 241, 233, 0.8); /* F6F1E9 - Light background */
+}
+
+/* Card styles */
+.card {
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.9); /* White with slight transparency */
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading styles */
+h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #FF8400; /* FF8400 - Orange color for headings */
+}
+
+/* Input container styles */
+.input-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* Label styles */
+label {
+  font-weight: bold;
+  color: #162b2b; /* FFD93D - Yellow color for labels */
+  margin-right: 10px;
+}
+
+/* Text input styles */
+input[type="text"] {
+  flex: 1;
+  padding: 5px;
+  border: 1px solid #d2d2d2;
+  border-radius: 3px;
+}
+
+/* Button styles */
+button {
+  padding: 10px 20px;
+  background-color: #162b2b; /* #162b2b - Dark color for buttons */
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+/* Disabled button styles */
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* H1 (top-level heading) styles */
+h1 {
+  font-size: 24px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  color: #162b2b; /* #162b2b - Dark color for headings */
+}
+
+/* List styles within cards */
+.card ul {
+  list-style: none;
+  padding: 0;
+}
+
+/* List item styles within cards */
+.card li {
+  margin: 5px 0;
+  color: #4F200D; /* #4F200D - Brown color for list items */
+}
+
+/* Result card styles */
+.result-card {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #F2CD5C; /* #F2CD5C - Light Yellow for the result card */
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Result title styles */
+.result-title {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #A61F69; /* #A61F69 - Purple color for result title */
+}
+
+/* Result list styles */
+.result-list {
+  list-style: none;
+  padding: 0;
+}
+
+/* Result item styles */
+.result-item {
+  margin: 5px 0;
+  color: #400E32; /* #400E32 - Dark Purple color for result items */
+}

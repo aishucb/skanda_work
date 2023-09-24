@@ -1,72 +1,62 @@
 /* Container for the entire Home component */
 .home-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background-color: #f0f0f0; /* Background color for the entire page */
-  }
-  
-  /* Background image covering the entire page */
-  .background-image {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('/public/bg.jpg'); /* Replace with your background image */
-    background-size: cover;
-    opacity: 0.7; /* Adjust opacity as needed */
-    z-index: -1; /* Place it behind other elements */
-  }
-  
-  /* Header for the website title and logo */
-  .header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  /* Logo on the left side of the header */
-  .logo img {
-    width: 50px; /* Adjust the logo size as needed */
-    height: 50px;
-    margin-right: 10px; /* Spacing between logo and title */
-  }
-  
-  /* Website title in the header */
-  .title {
-    font-size: 24px; /* Adjust the font size as needed */
-    color: #333; /* Text color */
-  }
-  
-  /* Container for the "Write" and "Read" buttons */
-  .button-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-  }
-  
-  /* Style for the buttons */
-  .button {
-    display: inline-block;
-    padding: 10px 20px;
-    margin: 0 10px;
-    background-color: #007bff; /* Button background color */
-    color: #fff; /* Button text color */
-    font-size: 18px;
-    text-decoration: none;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  /* Hover effect for buttons */
-  .button:hover {
-    background-color: #0056b3; /* Hovered button background color */
-  }
-  
-  /* Add additional CSS styles as needed */
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f0f0; /* Background color for the entire page */
+  padding: 20px; /* Add padding for better spacing */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Add shadow for a card-like appearance */
+}
+
+/* Header for the website title and logo */
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* Logo on the left side of the header */
+.logo img {
+  width: 50px; /* Adjust the logo size as needed */
+  height: 50px;
+  margin-right: 10px; /* Spacing between logo and title */
+}
+
+/* Website title in the header */
+.title {
+  font-size: 24px; /* Adjust the font size as needed */
+  color: #333; /* Text color */
+}
+
+/* Container for the "Write" and "Read" buttons */
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+/* Style for the buttons */
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 0 10px;
+  background-color: #162b2b; /* Button background color */
+  color: #fff; /* Button text color */
+  font-size: 18px;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+/* Hover effect for buttons */
+.button:hover {
+  background-color: #020609; /* Hovered button background color */
+}
+
+/* Add additional CSS styles as needed */
+a{
+  background-color: #050505;
+}

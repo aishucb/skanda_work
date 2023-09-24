@@ -7,22 +7,12 @@ function Home() {
     <div className="home-container">
       {/* Background Image */}
       <div className="background-image"></div>
-
-
-      {/* Header */}
-      <header className="header">
-        <div className="logo">
-          <img src="logo.jpg" alt="Logo" />
-        </div>
-        <h1 className="title">Your Website Title</h1>
-      </header>
-
       {/* Buttons for Write and Read Actions */}
       <div className="button-container">
-        <Link to="/write" className="button">
+        <Link to="/write" className="button" style={{ backgroundColor: "#162b2b" }}>
           Write
         </Link>
-        <Link to="/read" className="button">
+        <Link to="/read" className="button" style={{ backgroundColor: "#162b2b" }}> 
           Read
         </Link>
       </div>
