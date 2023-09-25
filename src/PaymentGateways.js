@@ -7,6 +7,7 @@ const auth = getAuth(app);
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [paymentCompleted, setPaymentCompleted] = useState(false);
@@ -61,30 +62,37 @@ const SignUp = () => {
   };
 
   return (
-    <div>
+    <div style={{  color: 'black', backgroundColor: 'white' }}>
       <h2>Sign Up</h2>
-      <div>
-        <label>Email:</label>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-      </div>
-      <div>
-        <label>Password:</label>
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </div>
-      <div>
-        <button onClick={handleSignUp}>Sign Up</button>
+      <div className="form-container" >
+        
+        <div>
+          
+          <input
+            type="email"
+            placeholder="Your Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            style={{ color: 'black' }}
+          />
+        </div>
+        <div>
+          
+          <input
+            type="password"
+            placeholder="Your Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            style={{ color: 'black' }}
+          />
+        </div>
+        <div>
+          
+        </div>
       </div>
 
       {/* PayPal button */}
-      <div id="paypal-button-container"></div>
+      <div id="paypal-button-container" ></div>
     </div>
   );
 };

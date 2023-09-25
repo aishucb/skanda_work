@@ -24,7 +24,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<ReadData />} />
 
         <Route path="/read" element={<ReadData />} />
         <Route path="/write" element={<OtpApp />} />

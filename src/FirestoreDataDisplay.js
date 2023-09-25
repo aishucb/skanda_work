@@ -3,7 +3,7 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import './FireStoreDataDisplay.css';
-
+import { Link } from 'react-router-dom'; // Import Link for navigation
 const firebaseConfig = {
   apiKey: "AIzaSyCEJlazhRcbvonRy_BBA2hgqo5pcOemsRE",
   authDomain: "skanda-project-fd476.firebaseapp.com",
@@ -13,7 +13,6 @@ const firebaseConfig = {
   appId: "1:810284200286:web:bff867b840c67537935fcf",
   measurementId: "G-9TXBJ8YRNV"
 };
-
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 const productsCollection = db.collection("products");
@@ -23,9 +22,9 @@ function FirestoreDataDisplay() {
   const [productList, setProductList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [selectedCollection, setSelectedCollection] = useState('products'); // Default to 'products'
+  const [selectedCollection, setSelectedCollection] = useState('products'); 
 
-  const collections = ['products', 'alpha'];
+  const collections = ['alpha', 'beta','gamma','charlie'];
 
   const handleCollectionChange = (e) => {
     setSelectedCollection(e.target.value);
@@ -35,10 +34,9 @@ function FirestoreDataDisplay() {
     setLoading(true);
     setError(null);
 
-    const uniqueIdNumber = parseFloat(uniqueId);
+    const uniqueIdNumber = uniqueId;
 
     if (!isNaN(uniqueIdNumber)) {
-      // Use the selected collection in the query
       const collectionRef = db.collection(selectedCollection);
 
       collectionRef
@@ -48,11 +46,10 @@ function FirestoreDataDisplay() {
           const products = [];
           querySnapshot.forEach((doc) => {
             const productData = doc.data();
-            const productName = productData.name;
             const productPlace = productData.place;
             const productUniqueId = productData.uniqueid;
 
-            products.push(`Name: ${productName}, Place: ${productPlace}, Unique ID: ${productUniqueId}`);
+            products.push({ place: productPlace, uniqueId: productUniqueId });
           });
 
           if (querySnapshot.empty) {
@@ -77,23 +74,21 @@ function FirestoreDataDisplay() {
   };
 
   return (
-    <div className="container" style={{textAlign:"center"}}>
+    <div className="container" style={{ textAlign: "center" }}>
       <div className="card">
-        <h2 style={{color:'white',textAlign:"center"}}>READ DATA</h2>
+        <h2 style={{ color: 'white', textAlign: "center" }}>READ DATA</h2>
         <div className="input-container">
-          
           <input
             type="text"
             id="uniqueId"
             placeholder="Enter Unique ID"
+            style={{color:"black"}}
             value={uniqueId}
             onChange={(e) => setUniqueId(e.target.value)}
           />&nbsp;
-          
         </div>
 
         <div className="collection-dropdown">
-          <label htmlFor="collection">Select Collection:</label>
           <select
             id="collection"
             value={selectedCollection}
@@ -107,24 +102,37 @@ function FirestoreDataDisplay() {
           </select>
         </div>
         <button
-            onClick={getDataByUniqueId}
-            style={{backgroundColor:"#f99436"}}
-            disabled={!uniqueId || isNaN(parseFloat(uniqueId)) || loading}
-          >
-            Submit
-          </button>
+          onClick={getDataByUniqueId}
+          style={{ backgroundColor: "#f99436" }}
+          disabled={!uniqueId || isNaN(parseFloat(uniqueId)) || loading}
+        >
+          Submit
+        </button>
         {error && <p className="error">{error}</p>}
 
         {productList.length > 0 && (
           <div className="result-card">
-            <h1 style={{color:'white'}}>Product List</h1>
+            <h1 style={{ color: 'white' }}>Product List</h1>
             <ul>
               {productList.map((product, index) => (
-                <li key={index} style={{color:'white'}}>{product}</li>
+                <li key={index} style={{ color: 'white' }}>
+                  Unique ID: {product.uniqueId}, Place: {product.place}, Input 3: {product.input3}
+                </li>
               ))}
             </ul>
           </div>
         )}
+      </div>
+      <div>
+        <Link to="/write" style={{ display: "inline-block", backgroundColor: "#04040400", borderColor: "#e7eff0", color: "#f99436" }}>
+          <u>Write</u>
+        </Link>{" "}
+        <Link to="/login" style={{ display: "inline-block", backgroundColor: "#33333300", color: " #f99436" }}>
+          <u>Login</u>
+        </Link>{" "}
+        <Link to="/payment" style={{ display: "inline-block", backgroundColor: "#33333300", color: " #f99436" }}>
+          <u>signup</u>
+        </Link>
       </div>
     </div>
   );

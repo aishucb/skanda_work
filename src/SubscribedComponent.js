@@ -31,7 +31,7 @@ function SubscribedComponent() {
   const [error, setError] = useState(null);
   const [selectedCollection, setSelectedCollection] = useState('products'); // Default to 'products'
 
-  const collections = ['products', 'alpha',  'beta', 'gamma'];
+  const collections = ['charlie', 'alpha',  'beta', 'gamma'];
 
   const handleCollectionChange = (e) => {
     setSelectedCollection(e.target.value);
@@ -41,7 +41,7 @@ function SubscribedComponent() {
     setLoading(true);
     setError(null);
 
-    const uniqueIdNumber = parseFloat(uniqueId);
+    const uniqueIdNumber =uniqueId;
 
     if (!isNaN(uniqueIdNumber)) {
       // Use the selected collection in the query
@@ -83,11 +83,11 @@ function SubscribedComponent() {
   };
   if (isAuthenticated) {
     return (
-      <div className="container">
+      <div className="container" style={{textAlign:"center"}}>
         <div className="card">
         
           <div className="input-container">
-            <label htmlFor="uniqueId">Enter Unique ID:</label>
+          
             <input
               type="text"
               id="uniqueId"
