@@ -4,11 +4,16 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #012b59; /* Background color for the entire page */
-  padding: 50px; /* Add padding for better spacing */
+  background-color: #0404049d; /* Background color for the entire page */
+  padding: 100px; /* Add padding for better spacing */
 
 }
-
+#heading
+{
+  font-family: 'Poppins', sans-serif;
+  color: #f99436;
+  text-align: center;
+}
 /* Header for the website title and logo */
 .header {
   display: flex;
@@ -26,7 +31,7 @@
 /* Website title in the header */
 .title {
   font-size: 24px; /* Adjust the font size as needed */
-  color: #333; /* Text color */
+  color: #040404a8; /* Text color */
 }
 
 /* Container for the "Write" and "Read" buttons */
@@ -34,6 +39,7 @@
   display: flex;
   justify-content: center;
   margin-top: 20px;
+  
 }
 
 /* Style for the buttons */

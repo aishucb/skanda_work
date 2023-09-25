@@ -15,9 +15,9 @@ class OtpApp extends Component {
     this.state = {
       mobile: "",
       otp: "",
-      value1: "", // Add three state variables for the values
-      value2: "",
-      value3: ""
+      name: "", // Add three state variables for the values
+      place: "",
+      uniqueid: ""
     };
   }
 
@@ -77,16 +77,16 @@ class OtpApp extends Component {
 
   // Function to store values in Firebase
   storeValuesInFirebase = () => {
-    const { value1, value2, value3 } = this.state;
+    const { name, place, uniqueid } = this.state;
     
     // Replace 'your_collection_name' with your actual Firebase collection name
     const collectionRef = db.collection("alpha");
 
     collectionRef
       .add({
-        value1: value1,
-        value2: value2,
-        value3: value3,
+        name: name,
+        place: place,
+        uniqueid: uniqueid,
       })
       .then(() => {
         console.log("Values stored in Firebase");
@@ -98,27 +98,29 @@ class OtpApp extends Component {
 
   render() {
     return (
-      <div style={{backgroundColor :"#012b59"}} className="divisions">
-        <h2 style={{color: "white"}}>Insert Data</h2>
+      <div style={{backgroundColor :"#f9943633"}} className="divisions">
+        <h2 style={{color: "white",fontSize:"30px"}}>Insert Data</h2>
         <br/>
           <input
             type="text"
-            name="value1"
-            placeholder="Value 1"
+            name="name"
+            style={{color:"white",fontFamily:" 'Poppins', sans-serif"}}
+            placeholder="Name"
             required
             onChange={this.handleChange}
           /><br/>
           <input
             type="text"
-            name="value2"
-            placeholder="Value 2"
+            name="Place"
+            style={{color:"white",fontFamily:" 'Poppins', sans-serif"}}
+            placeholder="Place"
             required
             onChange={this.handleChange}
           /><br/>
           <input
-            type="text"
-            name="value3"
-            placeholder="Value 3"
+            type="number"
+            name="uniqueid"
+            placeholder="Unique ID"
             required
             onChange={this.handleChange}
           /><br/>
@@ -131,7 +133,7 @@ class OtpApp extends Component {
             required
             onChange={this.handleChange}
           /><br/><br/>
-          <button type="submit" style={{ backgroundColor: "#e7eff0", color: "#012b59"}}>Submit</button><br/>
+          <button type="submit" style={{ backgroundColor: "#f99436", color: "white"}}>Submit</button><br/>
         </form><br/>
         <h2 style={{color: "white"}}>OTP login</h2>
         <input
@@ -140,10 +142,10 @@ class OtpApp extends Component {
             placeholder="OTP number"
             required
             onChange={this.handleChange}
-          /><br/>
+          /><button type="submit" style={{ backgroundColor: "#f99436", color: "white"}}>Verify OTP</button><br/>
         <form onSubmit={this.onSubmitOTP}>
+          <br/>
           
-          <button type="submit" style={{ backgroundColor: "#e7eff0", color: "#012b59"}}>Verify OTP</button>
         </form>
       </div>
     );

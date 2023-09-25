@@ -85,7 +85,7 @@ function SubscribedComponent() {
     return (
       <div className="container">
         <div className="card">
-          <h2 style={{color:'#012b59'}}>Enter Unique ID:</h2>
+        
           <div className="input-container">
             <label htmlFor="uniqueId">Enter Unique ID:</label>
             <input
@@ -95,12 +95,7 @@ function SubscribedComponent() {
               value={uniqueId}
               onChange={(e) => setUniqueId(e.target.value)}
             />
-            <button
-              onClick={getDataByUniqueId}
-              disabled={!uniqueId || isNaN(parseFloat(uniqueId)) || loading}
-            >
-              Submit
-            </button>
+            
           </div>
   
           <div className="collection-dropdown">
@@ -117,7 +112,13 @@ function SubscribedComponent() {
               ))}
             </select>
           </div>
-  
+          <button
+              onClick={getDataByUniqueId}
+              disabled={!uniqueId || isNaN(parseFloat(uniqueId)) || loading}
+              style={{backgroundColor:"#f99436"}}
+            >
+              Submit
+            </button>
           {error && <p className="error">{error}</p>}
   
           {productList.length > 0 && (
@@ -129,6 +130,7 @@ function SubscribedComponent() {
                 ))}
               </ul>
             </div>
+          
           )}
         </div>
       </div>

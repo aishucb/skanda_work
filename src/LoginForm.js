@@ -22,14 +22,14 @@ const Login = () => {
 
   const containerStyle = {
     fontFamily: 'Poppins, sans-serif',
-    backgroundColor: '#012b59',
+    backgroundColor: '#f9943633',
     color: 'white',
     padding: '40px',
     borderRadius: '8px',
     boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
     width: '300px', // Adjust the width as needed
     margin: '0 auto', // Center the container horizontally
-    
+    textAlign:"center"
   };
 
   const labelStyle = {
@@ -44,14 +44,14 @@ const Login = () => {
     marginBottom: '20px',
     backgroundColor: 'transparent',
     border: 'none',
-    borderBottom: '1px solid #b4d445',
+    borderBottom: '1px solid #040404',
     color: 'white',
     fontFamily: 'Poppins, sans-serif',
     outline: 'none',
   };
 
   const buttonStyle = {
-    backgroundColor: '#b4d445',
+    backgroundColor: '#f99436',
     color: 'white',
     padding: '10px 20px',
     border: 'none',
@@ -61,7 +61,7 @@ const Login = () => {
 
   return (
     <div style={containerStyle}>
-      <h2>Login</h2>
+      <h2 style={{fontSize:"24px"}}>Login</h2>
       <div>
         <label style={labelStyle}>Email:</label>
         <input

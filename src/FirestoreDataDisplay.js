@@ -77,24 +77,19 @@ function FirestoreDataDisplay() {
   };
 
   return (
-    <div className="container">
+    <div className="container" style={{textAlign:"center"}}>
       <div className="card">
-        <h2 style={{color:'#012b59'}}>Enter Unique ID:</h2>
+        <h2 style={{color:'white',textAlign:"center"}}>READ DATA</h2>
         <div className="input-container">
-          <label htmlFor="uniqueId">Enter Unique ID:</label>
+          
           <input
             type="text"
             id="uniqueId"
             placeholder="Enter Unique ID"
             value={uniqueId}
             onChange={(e) => setUniqueId(e.target.value)}
-          />
-          <button
-            onClick={getDataByUniqueId}
-            disabled={!uniqueId || isNaN(parseFloat(uniqueId)) || loading}
-          >
-            Submit
-          </button>
+          />&nbsp;
+          
         </div>
 
         <div className="collection-dropdown">
@@ -111,7 +106,13 @@ function FirestoreDataDisplay() {
             ))}
           </select>
         </div>
-
+        <button
+            onClick={getDataByUniqueId}
+            style={{backgroundColor:"#f99436"}}
+            disabled={!uniqueId || isNaN(parseFloat(uniqueId)) || loading}
+          >
+            Submit
+          </button>
         {error && <p className="error">{error}</p>}
 
         {productList.length > 0 && (
