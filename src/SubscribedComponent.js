@@ -31,7 +31,7 @@ function SubscribedComponent() {
   const [error, setError] = useState(null);
   const [selectedCollection, setSelectedCollection] = useState('products'); // Default to 'products'
 
-  const collections = ['products', 'alpha', 'otherCollection2', 'otherCollection3'];
+  const collections = ['products', 'alpha',  'beta', 'gamma'];
 
   const handleCollectionChange = (e) => {
     setSelectedCollection(e.target.value);

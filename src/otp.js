@@ -111,7 +111,7 @@ class OtpApp extends Component {
           /><br/>
           <input
             type="text"
-            name="Place"
+            name="place"
             style={{color:"white",fontFamily:" 'Poppins', sans-serif"}}
             placeholder="Place"
             required
@@ -135,6 +135,8 @@ class OtpApp extends Component {
           /><br/><br/>
           <button type="submit" style={{ backgroundColor: "#f99436", color: "white"}}>Submit</button><br/>
         </form><br/>
+        
+        <form onSubmit={this.onSubmitOTP}>
         <h2 style={{color: "white"}}>OTP login</h2>
         <input
             type="number"
@@ -142,8 +144,8 @@ class OtpApp extends Component {
             placeholder="OTP number"
             required
             onChange={this.handleChange}
-          /><button type="submit" style={{ backgroundColor: "#f99436", color: "white"}}>Verify OTP</button><br/>
-        <form onSubmit={this.onSubmitOTP}>
+          />
+        <button type="submit" style={{ backgroundColor: "#f99436", color: "white"}}>Verify OTP</button><br/>
           <br/>
           
         </form>
