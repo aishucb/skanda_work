@@ -92,7 +92,7 @@ const SignUp = () => {
       </div>
 
       {/* PayPal button */}
-      <div id="paypal-button-container" ></div>
+      <div id="paypal-button-container" > </div>
     </div>
   );
 };
