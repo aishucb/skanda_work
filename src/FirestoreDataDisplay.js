@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
+import 'firebase/compat/storage';
 import './FireStoreDataDisplay.css';
-import { Link } from 'react-router-dom'; // Import Link for navigation
+import { Link } from 'react-router-dom';
+
 const firebaseConfig = {
   apiKey: "AIzaSyCEJlazhRcbvonRy_BBA2hgqo5pcOemsRE",
   authDomain: "skanda-project-fd476.firebaseapp.com",
@@ -13,6 +15,7 @@ const firebaseConfig = {
   appId: "1:810284200286:web:bff867b840c67537935fcf",
   measurementId: "G-9TXBJ8YRNV"
 };
+
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 const productsCollection = db.collection("products");
@@ -48,8 +51,10 @@ function FirestoreDataDisplay() {
             const productData = doc.data();
             const productPlace = productData.place;
             const productUniqueId = productData.uniqueid;
+            const productName = productData.name;
+            const productLink = productData.imageUrl;
 
-            products.push({ place: productPlace, uniqueId: productUniqueId });
+            products.push({ place: productPlace, uniqueId: productUniqueId ,name:productName,imageUrl:productLink});
           });
 
           if (querySnapshot.empty) {
@@ -116,7 +121,9 @@ function FirestoreDataDisplay() {
             <ul>
               {productList.map((product, index) => (
                 <li key={index} style={{ color: 'white' }}>
-                  Unique ID: {product.uniqueId}, Place: {product.place}, Input 3: {product.input3}
+                   <img src={product.imageUrl} alt="Description of the image" style={{maxWidth:'200px',maxHeight:'200px'}}/>
+                   <br></br>
+                  Unique ID: {product.uniqueId}, Place: {product.name}, Input 3: {product.input3}
                 </li>
               ))}
             </ul>

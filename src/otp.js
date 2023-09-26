@@ -4,11 +4,13 @@ import { RecaptchaVerifier } from "firebase/auth";
 import { signInWithPhoneNumber } from "firebase/auth";
 import { getAuth } from 'firebase/auth';
 import firebase from 'firebase/compat/app';
+import 'firebase/compat/storage'; // Import Firebase Storage
+
 import './otp.css';
 
 const auth = getAuth(app);
 const db = firebase.firestore();
-// ... Your existing imports ...
+const storage = firebase.storage(); // Firebase Storage
 
 class OtpApp extends Component {
   constructor(props) {
@@ -36,6 +38,7 @@ class OtpApp extends Component {
       input12: "",
       // Add a state variable to track the second form submission
       secondFormSubmitted: false,
+      selectedImage: null, // State to store the selected image
     };
   }
 
@@ -119,47 +122,64 @@ class OtpApp extends Component {
       input11,
       input12,
       place, // Include place in the data to determine the collection
+      selectedImage, // The selected image
     } = this.state;
 
-    // Perform any necessary operations with the input values
-    // For example, you can send them to Firebase or perform validation
+    if (selectedImage) {
+      // Create a reference to the Firebase Storage location where you want to store the image
+      const storageRef = storage.ref().child('images/' + selectedImage.name);
 
-    // Determine the collection based on the selected place
-    const collectionName = place.toLowerCase(); // Convert to lowercase for consistency
+      // Upload the image to Firebase Storage
+      storageRef.put(selectedImage)
+        .then((snapshot) => {
+          // Get the download URL of the uploaded image
+          return snapshot.ref.getDownloadURL();
+        })
+        .then((downloadURL) => {
+          // Now, you can include the downloadURL in your data to store in Firestore
+          const data = {
+            name: this.state.name,
+            uniqueid: this.state.uniqueid,
+            input1: input1,
+            input2: input2,
+            input3: input3,
+            input4: input4,
+            input5: input5,
+            input6: input6,
+            input7: input7,
+            input8: input8,
+            input9: input9,
+            input10: input10,
+            input11: input11,
+            input12: input12,
+            imageUrl: downloadURL, // Add the image URL to your data
+          };
 
-    // Here, we are adding the data from both forms to Firebase
-    const { name, uniqueid } = this.state;
-    const data = {
-      name: name,
-      uniqueid: uniqueid,
-      input1: input1,
-      input2: input2,
-      input3: input3,
-      input4: input4,
-      input5: input5,
-      input6: input6,
-      input7: input7,
-      input8: input8,
-      input9: input9,
-      input10: input10,
-      input11: input11,
-      input12: input12,
-    };
+          const collectionName = place.toLowerCase();
+          const collectionRef = db.collection(collectionName);
 
-    // Replace 'your_collection_name' with your actual Firebase collection name
-    const collectionRef = db.collection(collectionName);
+          return collectionRef.add(data);
+        })
+        .then(() => {
+          console.log("Image and data stored in Firebase");
+          alert("Record added successfully");
+          this.setState({ secondFormSubmitted: true });
+        })
+        .catch((error) => {
+          console.error("Error uploading image to Firebase:", error);
+        });
+    } else {
+      console.error("No image selected");
+    }
+  };
 
-    collectionRef
-      .add(data)
-      .then(() => {
-        console.log("Values stored in Firebase");
-        alert("Record added successfully");
-        // Set the secondFormSubmitted state to true
-        this.setState({ secondFormSubmitted: true });
-      })
-      .catch((error) => {
-        console.error("Error storing values in Firebase:", error);
-      });
+  // Function to handle image selection
+  handleImageChange = (e) => {
+    const imageFile = e.target.files[0]; // Get the first selected file
+
+    if (imageFile) {
+      this.setState({ selectedImage: imageFile });
+    }
   };
 
   render() {
@@ -175,11 +195,11 @@ class OtpApp extends Component {
           required
           onChange={this.handleChange}
         /><br />
-<br></br>
+        <br></br>
         {/* Replace the input for "Place" with a dropdown */}
         <select
           name="place"
-          style={{  fontFamily: " 'Poppins', sans-serif" }}
+          style={{ fontFamily: " 'Poppins', sans-serif" }}
           value={this.state.place}
           onChange={this.handleChange}
           required
@@ -197,155 +217,167 @@ class OtpApp extends Component {
         <input
           type="number"
           name="uniqueid"
-          style={{  fontFamily: " 'Poppins', sans-serif",color:"black" }}
+          style={{ fontFamily: " 'Poppins', sans-serif", color: "black" }}
           placeholder="Unique ID"
           required
           onChange={this.handleChange}
-        /><br /><br/>
-      <div style={{backgroundColor:'#f9943633',width:'contain',padding:"50px"}}>
-        
-        <form onSubmit={this.onSignInSubmit}>
-          <div id="sign-in-button"></div>
-          <input
-            type="number"
-            name="mobile"
-            placeholder="Mobile number"
-            required
-            onChange={this.handleChange}
-          /><br /><br />
-          <button type="submit" style={{ backgroundColor: "#f99436", color: "white" }}>Mobile verification</button><br />
-        </form><br />
+        /><br /><br />
+        <div style={{ backgroundColor: '#f9943633', width: 'contain', padding: "50px" }}>
 
-        <form onSubmit={this.onSubmitOTP}>
-          <h2 style={{ color: "white" }}>OTP login</h2>
-          <input
-            type="number"
-            name="otp"
-            placeholder="OTP number"
-            required
-            onChange={this.handleChange}
-          />
-          <button type="submit" style={{ backgroundColor: "#f99436", color: "white" }}>Verify OTP</button><br />
-          <br />
-        </form></div>
+          <form onSubmit={this.onSignInSubmit}>
+            <div id="sign-in-button"></div>
+            <input
+              type="number"
+              name="mobile"
+              style={{color:'black'}}
+              placeholder="Mobile number"
+              required
+              onChange={this.handleChange}
+            /><br /><br />
+            <button type="submit" style={{ backgroundColor: "#f99436", color: "white" }}>Mobile verification</button><br />
+          </form><br />
 
-        {/* Conditionally render the second form */}
-        {this.state.otpSubmitted && !this.state.secondFormSubmitted && (
-          <form onSubmit={this.onSubmitSecondForm} style={{textAlign:"center"}}>
-            <h2 style={{ color: "white",padding:'25px' }}>Second Form</h2>
-            <div className="input-row">
+          <form onSubmit={this.onSubmitOTP}>
+            <h2 style={{ color: "white" }}>OTP login</h2>
             <input
-              type="text"
-              name="input1"
-              placeholder="Input 1"
-              value={this.state.input1}
-              style={{maxWidth:"40%"}}
+              type="number"
+              name="otp"
+              placeholder="OTP number"
+              style={{color:'black'}}
+              required
               onChange={this.handleChange}
-            />&nbsp;&nbsp;
-            <input
-              type="text"
-              name="input2"
-              placeholder="Input 2"
-              style={{maxWidth:"40%"}}
-              value={this.state.input2}
-              onChange={this.handleChange}
-            /><br /></div>
-            {/* Repeat the above input pattern for the remaining 10 inputs */}
-            {/* input3 to input12 */}
-            <div className="input-row">
-            <input
-              type="text"
-              name="input3"
-              placeholder="Input 3"
-              style={{maxWidth:"40%"}}
-              value={this.state.input3}
-              onChange={this.handleChange}
-            /><br />
-            <input
-              type="text"
-              name="input4"
-              placeholder="Input 4"
-              value={this.state.input4}
-              style={{maxWidth:"40%"}}
-              onChange={this.handleChange}
-            /><br />
-            </div>
-            <div className="input-row">
-            <input
-              type="text"
-              name="input5"
-              placeholder="Input 5"
-              style={{maxWidth:"40%"}}
-              value={this.state.input5}
-              onChange={this.handleChange}
-            /><br />
-            <input
-              type="text"
-              name="input6"
-              style={{maxWidth:"40%"}}
-              placeholder="Input 6"
-              value={this.state.input6}
-              onChange={this.handleChange}
-            /><br />
-            </div>
-            <div className="input-row">
-            <input
-              type="text"
-              name="input7"
-              placeholder="Input 7"
-              style={{maxWidth:"40%"}}
-              value={this.state.input7}
-              onChange={this.handleChange}
-            /><br />
-            <input
-              type="text"
-              name="input8"
-              placeholder="Input 8"
-              style={{maxWidth:"40%"}}
-              value={this.state.input8}
-              onChange={this.handleChange}
-            /><br />
-            </div>
-            <div className="input-row">
-            <input
-              type="text"
-              name="input9"
-              placeholder="Input 9"
-              style={{maxWidth:"40%"}}
-              value={this.state.input9}
-              onChange={this.handleChange}
-            /><br />
-            <input
-              type="text"
-              name="input10"
-              placeholder="Input 10"
-              style={{maxWidth:"40%"}}
-              value={this.state.input10}
-              onChange={this.handleChange}
-            /><br />
-            </div>
-            <div className="input-row">
-            <input
-              type="text"
-              name="input11"
-              placeholder="Input 11"
-              style={{maxWidth:"40%"}}
-              value={this.state.input11}
-              onChange={this.handleChange}
-            /><br />
-            <input
-              type="text"
-              name="input12"
-              placeholder="Input 12"
-              style={{maxWidth:"40%"}}
-              value={this.state.input12}
-              onChange={this.handleChange}
-            /><br />
-            </div>
-            <button type="submit" style={{ backgroundColor: "#f99436", color: "white" }}>Submit</button><br />
+            />
+            <button type="submit" style={{ backgroundColor: "#f99436", color: "white" }}>Verify OTP</button><br />
             <br />
           </form>
-        )}
+
+          {/* Conditionally render the second form */}
+          {this.state.otpSubmitted && !this.state.secondFormSubmitted && (
+            <form onSubmit={this.onSubmitSecondForm} style={{ textAlign: "center" }}>
+              <h2 style={{ color: "white", padding: '25px' }}>Second Form</h2>
+              <div className="input-row">
+                <input
+                  type="text"
+                  name="input1"
+                  placeholder="Input 1"
+                  value={this.state.input1}
+                  style={{ maxWidth: "40%" }}
+                  onChange={this.handleChange}
+                />&nbsp;&nbsp;
+                <input
+                  type="text"
+                  name="input2"
+                  placeholder="Input 2"
+                  style={{ maxWidth: "40%" }}
+                  value={this.state.input2}
+                  onChange={this.handleChange}
+                /><br /></div>
+              {/* Repeat the above input pattern for the remaining 10 inputs */}
+              {/* input3 to input12 */}
+              <div className="input-row">
+                <input
+                  type="text"
+                  name="input3"
+                  placeholder="Input 3"
+                  style={{ maxWidth: "40%" }}
+                  value={this.state.input3}
+                  onChange={this.handleChange}
+                /><br />
+                <input
+                  type="text"
+                  name="input4"
+                  placeholder="Input 4"
+                  value={this.state.input4}
+                  style={{ maxWidth: "40%" }}
+                  onChange={this.handleChange}
+                /><br />
+              </div>
+              <div className="input-row">
+                <input
+                  type="text"
+                  name="input5"
+                  placeholder="Input 5"
+                  style={{ maxWidth: "40%" }}
+                  value={this.state.input5}
+                  onChange={this.handleChange}
+                /><br />
+                <input
+                  type="text"
+                  name="input6"
+                  style={{ maxWidth: "40%" }}
+                  placeholder="Input 6"
+                  value={this.state.input6}
+                  onChange={this.handleChange}
+                /><br />
+              </div>
+              <div className="input-row">
+                <input
+                  type="text"
+                  name="input7"
+                  placeholder="Input 7"
+                  style={{ maxWidth: "40%" }}
+                  value={this.state.input7}
+                  onChange={this.handleChange}
+                /><br />
+                <input
+                  type="text"
+                  name="input8"
+                  placeholder="Input 8"
+                  style={{ maxWidth: "40%" }}
+                  value={this.state.input8}
+                  onChange={this.handleChange}
+                /><br />
+              </div>
+              <div className="input-row">
+                <input
+                  type="text"
+                  name="input9"
+                  placeholder="Input 9"
+                  style={{ maxWidth: "40%" }}
+                  value={this.state.input9}
+                  onChange={this.handleChange}
+                /><br />
+                <input
+                  type="text"
+                  name="input10"
+                  placeholder="Input 10"
+                  style={{ maxWidth: "40%" }}
+                  value={this.state.input10}
+                  onChange={this.handleChange}
+                /><br />
+              </div>
+              <div className="input-row">
+                <input
+                  type="text"
+                  name="input11"
+                  placeholder="Input 11"
+                  style={{ maxWidth: "40%" }}
+                  value={this.state.input11}
+                  onChange={this.handleChange}
+                /><br />
+                <input
+                  type="text"
+                  name="input12"
+                  placeholder="Input 12"
+                  style={{ maxWidth: "40%" }}
+                  value={this.state.input12}
+                  onChange={this.handleChange}
+                /><br />
+              </div>
+
+              {/* Image Upload */}
+              <input
+                type="file"
+                name="image"
+                accept="image/*"
+                onChange={this.handleImageChange}
+              /><br />
+
+              <button type="submit" style={{ backgroundColor: "#f99436", color: "white" }}>Submit</button><br />
+              <br />
+            </form>
+          )}
+        </div>
       </div>
     );
   }
