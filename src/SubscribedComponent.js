@@ -29,9 +29,9 @@ function SubscribedComponent() {
   const [productList, setProductList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [selectedCollection, setSelectedCollection] = useState('products'); // Default to 'products'
+  const [selectedCollection, setSelectedCollection] = useState('products'); 
 
-  const collections = ['charlie', 'alpha',  'beta', 'gamma'];
+  const collections = ['alpha', 'beta','gamma','charlie'];
 
   const handleCollectionChange = (e) => {
     setSelectedCollection(e.target.value);
@@ -40,13 +40,12 @@ function SubscribedComponent() {
   const getDataByUniqueId = () => {
     setLoading(true);
     setError(null);
-
-    const uniqueIdNumber =uniqueId;
-
+  
+    const uniqueIdNumber = uniqueId;
+  
     if (!isNaN(uniqueIdNumber)) {
-      // Use the selected collection in the query
       const collectionRef = db.collection(selectedCollection);
-
+  
       collectionRef
         .where('uniqueid', '==', uniqueIdNumber)
         .get()
@@ -54,13 +53,9 @@ function SubscribedComponent() {
           const products = [];
           querySnapshot.forEach((doc) => {
             const productData = doc.data();
-            const productName = productData.name;
-            const productPlace = productData.place;
-            const productUniqueId = productData.uniqueid;
-
-            products.push(`Name: ${productName}, Place: ${productPlace}, Unique ID: ${productUniqueId}`);
+            products.push(productData);
           });
-
+  
           if (querySnapshot.empty) {
             setError('No data found for the entered Unique ID.');
             setProductList([]);
@@ -81,60 +76,65 @@ function SubscribedComponent() {
       setLoading(false);
     }
   };
+  
   if (isAuthenticated) {
     return (
-      <div className="container" style={{textAlign:"center"}}>
-        <div className="card">
-        
-          <div className="input-container">
-          
-            <input
-              type="text"
-              id="uniqueId"
-              placeholder="Enter Unique ID"
-              value={uniqueId}
-              onChange={(e) => setUniqueId(e.target.value)}
-            />
-            
-          </div>
-  
-          <div className="collection-dropdown">
-            <label htmlFor="collection">Select Collection:</label>
-            <select
-              id="collection"
-              value={selectedCollection}
-              onChange={handleCollectionChange}
-            >
-              {collections.map((collectionName) => (
-                <option key={collectionName} value={collectionName}>
-                  {collectionName}
-                </option>
-              ))}
-            </select>
-          </div>
-          <button
-              onClick={getDataByUniqueId}
-              disabled={!uniqueId || isNaN(parseFloat(uniqueId)) || loading}
-              style={{backgroundColor:"#f99436"}}
-            >
-              Submit
-            </button>
-          {error && <p className="error">{error}</p>}
-  
-          {productList.length > 0 && (
-            <div className="result-card">
-              <h1 style={{color:'white'}}>Product List</h1>
-              <ul>
-                {productList.map((product, index) => (
-                  <li key={index} style={{color:'white'}}>{product}</li>
-                ))}
-              </ul>
-            </div>
-          
-          )}
+      <div className="container" style={{ textAlign: "center" }}>
+      <div className="card">
+        <h2 style={{ color: 'white', textAlign: "center" }}>READ DATA</h2>
+        <div className="input-container">
+          <input
+            type="text"
+            id="uniqueId"
+            placeholder="Enter Unique ID"
+            style={{color:"black"}}
+            value={uniqueId}
+            onChange={(e) => setUniqueId(e.target.value)}
+          />&nbsp;
         </div>
+
+        <div className="collection-dropdown">
+          <select
+            id="collection"
+            value={selectedCollection}
+            onChange={handleCollectionChange}
+          >
+            {collections.map((collectionName) => (
+              <option key={collectionName} value={collectionName}>
+                {collectionName}
+              </option>
+            ))}
+          </select>
+        </div>
+        <button
+          onClick={getDataByUniqueId}
+          style={{ backgroundColor: "#f99436" }}
+          disabled={!uniqueId || isNaN(parseFloat(uniqueId)) || loading}
+        >
+          Submit
+        </button>
+        {error && <p className="error">{error}</p>}
+
+        {productList.length > 0 && (
+          <div className="result-card">
+            <h1 style={{ color: 'white' }}>Product List</h1>
+            <ul>
+      {productList.map((product, index) => (
+        <li key={index} style={{ color: 'white' }}>
+          {Object.keys(product).map((key) => (
+            <span key={key}>
+              {key}: {product[key]}<br />
+            </span>
+          ))}
+        </li>
+      ))}
+    </ul>
+          </div>
+        )}
       </div>
-    );
+      
+    </div>
+  );
   } else {
     return (
       <div>

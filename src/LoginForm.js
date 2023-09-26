@@ -45,7 +45,7 @@ const Login = () => {
     backgroundColor: 'transparent',
     border: 'none',
     borderBottom: '1px solid #040404',
-    color: 'white',
+    color: 'black',
     fontFamily: 'Poppins, sans-serif',
     outline: 'none',
   };
