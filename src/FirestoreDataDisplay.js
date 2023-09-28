@@ -27,7 +27,7 @@ function FirestoreDataDisplay() {
   const [error, setError] = useState(null);
   const [selectedCollection, setSelectedCollection] = useState('products'); 
 
-  const collections = ['alpha', 'beta','gamma','charlie'];
+  const collections = ['alpha','beta','gamma','charlie','alpa'];
 
   const handleCollectionChange = (e) => {
     setSelectedCollection(e.target.value);

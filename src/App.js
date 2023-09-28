@@ -6,6 +6,7 @@ import PaymentGateway from './PaymentGateways';
 import Login from './LoginForm'; // Import the Login component
 import ReadData from './FirestoreDataDisplay';
 import OtpApp from './otp';
+import RazorpayPayment from './payment';
 
 
 import SubscribedComponent from './SubscribedComponent';
@@ -24,9 +25,9 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<ReadData />} />
+        <Route path="/" element={<Home />} />
 
-        <Route path="/read" element={<ReadData />} />
+        <Route path="/read" element={<RazorpayPayment />} />
         <Route path="/write" element={<OtpApp />} />
         <Route path="/payment" element={<PaymentGateway />} />
         {/* Use ProtectedRoute as a regular component */}
@@ -35,6 +36,7 @@ function App() {
           element={<SubscribedComponent isAuthenticated={isAuthenticated} />}
         />
         <Route path="/login" element={<Login />} />
+        <Route path="/paymentrazor" element={<RazorpayPayment />} />
       </Routes>
     </Router>
   );
