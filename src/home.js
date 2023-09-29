@@ -20,7 +20,21 @@ function Home() {
         </Link>
         <br/>
       </div>
-      
+      <div className="button-container" style={{padding:"50px"}}>
+        <Link to="/alpharead" className="button" style={{ backgroundColor: "black", borderColor: "#e7eff0", color: "white",padding:"20px"}}>
+          ALPHA
+        </Link>
+        <Link to="/betaread" className="button"  style={{ backgroundColor: "black", borderColor: "#e7eff0", color: "white",padding:"20px"}}> 
+          BETA
+        </Link>
+        <Link to="/gammaread" className="button" style={{ backgroundColor: "black", borderColor: "#e7eff0", color: "white",padding:"20px"}}>
+          GAMMA
+        </Link>
+        <Link to="/charlieread" className="button" style={{ backgroundColor: "black", borderColor: "#e7eff0", color: "white",padding:"20px"}}>
+          CHARLIE
+        </Link>
+        <br/>
+      </div>
     </div>
   );
 }

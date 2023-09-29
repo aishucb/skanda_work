@@ -18,7 +18,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-function RazorpayPayment() {
+function RazorpayPaymentgamma() {
   const [uniqueId, setUniqueId] = useState('');
   const [productList, setProductList] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -85,10 +85,9 @@ function RazorpayPayment() {
       image: 'https://example.com/your_logo',
       order_id: orderid,
       handler: function (response) {
-        alert(response.razorpay_payment_id);
-        alert(response.razorpay_order_id);
-        alert(response.razorpay_signature);
-        success= true;
+        alert("payment success");
+        
+        getDataByUniqueIdAll();
       },
       prefill: {
         name: 'Gaurav Kumar',
@@ -127,7 +126,7 @@ function RazorpayPayment() {
     const uniqueIdNumber = uniqueId;
 
     if (!isNaN(uniqueIdNumber)) {
-      const collectionRef = db.collection(selectedCollection);
+      const collectionRef = db.collection("gamma");
 
       collectionRef
         .where('uniqueid', '==', uniqueIdNumber)
@@ -180,7 +179,7 @@ function RazorpayPayment() {
     const uniqueIdNumber = uniqueId;
 
     if (!isNaN(uniqueIdNumber)) {
-      const collectionRef = db.collection(selectedCollection);
+      const collectionRef = db.collection("gamma");
 
       collectionRef
         .where('uniqueid', '==', uniqueIdNumber)
@@ -216,7 +215,7 @@ function RazorpayPayment() {
   return (
     <div className="container" style={{ textAlign: "center" }}>
       <div className="card" style={{textAlign:"center"}}>
-        <h2 style={{ color: 'black', textAlign: "center" }}>READ DATA</h2>
+        <h2 style={{ color: 'blcak', textAlign: "center" }}>READ DATA GAMMA</h2>
         <div className="input-container">
           <input
             type="text"
@@ -228,7 +227,7 @@ function RazorpayPayment() {
           />&nbsp;
         </div>
 
-        <div className="collection-dropdown">
+        <div className="collection-dropdown" style={{ display: "none" }}>
           <select
             id="collection"
             value={selectedCollection}
@@ -299,4 +298,4 @@ function RazorpayPayment() {
   );
 }
 
-export default RazorpayPayment;
+export default RazorpayPaymentgamma;

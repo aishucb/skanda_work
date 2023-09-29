@@ -18,7 +18,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-function RazorpayPayment() {
+function RazorpayPaymentAlpha() {
   const [uniqueId, setUniqueId] = useState('');
   const [productList, setProductList] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -59,11 +59,7 @@ function RazorpayPayment() {
       } catch (error) {
         console.error(error);
       }
-      var success1=paymentokay();
-        if (success1 == true)
-        {
-         getDataByUniqueIdAll();
-        }
+      
     };
     document.getElementById("nameit").onclick = function (e) {
         handleSubmit();
@@ -85,10 +81,9 @@ function RazorpayPayment() {
       image: 'https://example.com/your_logo',
       order_id: orderid,
       handler: function (response) {
-        alert(response.razorpay_payment_id);
-        alert(response.razorpay_order_id);
-        alert(response.razorpay_signature);
-        success= true;
+        alert("payment success");
+        
+        getDataByUniqueIdAll();
       },
       prefill: {
         name: 'Gaurav Kumar',
@@ -106,13 +101,8 @@ function RazorpayPayment() {
     
       var rzp1 = new window.Razorpay(options);
       rzp1.on('payment.failed', function (response) {
-        alert(response.error.code);
-        alert(response.error.description);
-        alert(response.error.source);
-        alert(response.error.step);
-        alert(response.error.reason);
-        alert(response.error.metadata.order_id);
-        alert(response.error.metadata.payment_id);
+        alert("payment failed");
+        
       });
 
       rzp1.open();
@@ -127,7 +117,7 @@ function RazorpayPayment() {
     const uniqueIdNumber = uniqueId;
 
     if (!isNaN(uniqueIdNumber)) {
-      const collectionRef = db.collection(selectedCollection);
+      const collectionRef = db.collection("alpha");
 
       collectionRef
         .where('uniqueid', '==', uniqueIdNumber)
@@ -180,7 +170,7 @@ function RazorpayPayment() {
     const uniqueIdNumber = uniqueId;
 
     if (!isNaN(uniqueIdNumber)) {
-      const collectionRef = db.collection(selectedCollection);
+      const collectionRef = db.collection("alpha");
 
       collectionRef
         .where('uniqueid', '==', uniqueIdNumber)
@@ -216,7 +206,7 @@ function RazorpayPayment() {
   return (
     <div className="container" style={{ textAlign: "center" }}>
       <div className="card" style={{textAlign:"center"}}>
-        <h2 style={{ color: 'black', textAlign: "center" }}>READ DATA</h2>
+        <h2 style={{ color: 'black', textAlign: "center" }}>READ DATA ALPHA</h2>
         <div className="input-container">
           <input
             type="text"
@@ -228,7 +218,7 @@ function RazorpayPayment() {
           />&nbsp;
         </div>
 
-        <div className="collection-dropdown">
+        <div className="collection-dropdown"  style={{ display: "none" }} >
           <select
             id="collection"
             value={selectedCollection}
@@ -299,4 +289,4 @@ function RazorpayPayment() {
   );
 }
 
-export default RazorpayPayment;
+export default RazorpayPaymentAlpha;
